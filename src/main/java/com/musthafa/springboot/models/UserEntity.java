@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
 public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -59,6 +58,12 @@ public class UserEntity {
 
 	public void setUserSalary(double userSalary) {
 		this.userSalary = userSalary;
+	}
+
+	@Override
+	public String toString() {
+		return "UserEntity [userId=" + userId + ", userName=" + userName + ", userAge=" + userAge + ", userSalary="
+				+ userSalary + "]";
 	}
 
 }
