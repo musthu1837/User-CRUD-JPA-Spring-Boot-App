@@ -25,50 +25,50 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("users/")
+	@GetMapping("/v1/users")
 	public List<UserEntity> listUsers() {
 		return userService.listUsers();
 	}
 
-	@PostMapping("users/")
-	public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity u) {
+	@PostMapping("/v1/users")
+	public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
 
-		userService.addUser(u);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(u.getUserId())
-				.toUri();
+		userService.addUser(user);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}")
+				.buildAndExpand(user.getUserId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 
-	@GetMapping("users/{id}")
-	public ResponseEntity<UserEntity> getUser(@PathVariable int id) {
-		Optional<UserEntity> u = userService.listUserById(id);
-		if (u.isPresent()) {
-			return ResponseEntity.ok(u.get());
+	@GetMapping("/v1/users/{userId}")
+	public ResponseEntity<UserEntity> getUser(@PathVariable int userId) {
+		Optional<UserEntity> user = userService.listUserById(userId);
+		if (user.isPresent()) {
+			return ResponseEntity.ok(user.get());
 		} else {
-			throw new UserNotFoundException("id: " + id);
+			throw new UserNotFoundException("userId: " + userId);
 		}
 	}
 
-	@PutMapping("users/{id}")
-	public ResponseEntity<UserEntity> updateUser(@RequestBody UserEntity u, @PathVariable int id) {
-		u.setUserId(id);
-		Optional<UserEntity> foundUser = userService.listUserById(id);
+	@PutMapping("/v1/users/{userId}")
+	public ResponseEntity<UserEntity> updateUser(@RequestBody UserEntity user, @PathVariable int userId) {
+		user.setUserId(userId);
+		Optional<UserEntity> foundUser = userService.listUserById(userId);
 		if (foundUser.isPresent()) {
-			userService.updateUser(u);
-			return ResponseEntity.ok(u);
+			userService.updateUser(user);
+			return ResponseEntity.ok(user);
 		} else {
-			throw new UserNotFoundException("id: " + id);
+			throw new UserNotFoundException("userId: " + userId);
 		}
 	}
 
-	@DeleteMapping("users/{id}")
-	public ResponseEntity<UserEntity> deleteUser(@PathVariable int id) {
-		Optional<UserEntity> foundUser = userService.listUserById(id);
+	@DeleteMapping("/v1/users/{userId}")
+	public ResponseEntity<UserEntity> deleteUser(@PathVariable int userId) {
+		Optional<UserEntity> foundUser = userService.listUserById(userId);
 		if (foundUser.isPresent()) {
-			userService.deleteUserById(id);
+			userService.deleteUserById(userId);
 			return ResponseEntity.ok(foundUser.get());
 		} else {
-			throw new UserNotFoundException("id: " + id);
+			throw new UserNotFoundException("userId: " + userId);
 		}
 	}
 }
