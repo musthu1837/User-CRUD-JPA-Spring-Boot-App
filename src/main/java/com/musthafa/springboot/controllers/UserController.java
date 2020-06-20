@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.musthafa.springboot.exceptions.UserNotFoundException;
 import com.musthafa.springboot.models.UserEntity;
 import com.musthafa.springboot.services.UserService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class UserController {
 
@@ -35,7 +37,7 @@ public class UserController {
 
 		userService.addUser(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}")
-				.buildAndExpand(user.getUserId()).toUri();
+				.buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 
@@ -51,7 +53,7 @@ public class UserController {
 
 	@PutMapping("/v1/users/{userId}")
 	public ResponseEntity<UserEntity> updateUser(@RequestBody UserEntity user, @PathVariable int userId) {
-		user.setUserId(userId);
+		user.setId(userId);
 		Optional<UserEntity> foundUser = userService.listUserById(userId);
 		if (foundUser.isPresent()) {
 			userService.updateUser(user);

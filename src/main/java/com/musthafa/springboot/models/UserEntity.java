@@ -4,66 +4,81 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int userId;
-	private String userName;
-	private int userAge;
-	private double userSalary;
-
-	public UserEntity(int userId, String userName, int userAge, double userSalary) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.userAge = userAge;
-		this.userSalary = userSalary;
-	}
-
+	private int id;
+	private String fullName;
+	private String emailId;
+	private int score;
+	private int rightAnswered;
+	private int wrongAnswered;
+	private int notAnswereds;
+	
 	public UserEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	public int getUserId() {
-		return userId;
+	public UserEntity(int id, String fullName, String emailId, int score, int rightAnswered, int wrongAnswered,
+			int notAnswereds) {
+		super();
+		this.id = id;
+		this.fullName = fullName;
+		this.emailId = emailId;
+		this.score = score;
+		this.rightAnswered = rightAnswered;
+		this.wrongAnswered = wrongAnswered;
+		this.notAnswereds = notAnswereds;
 	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public int getId() {
+		return id;
 	}
-
-	public String getUserName() {
-		return userName;
+	public void setId(int id) {
+		this.id = id;
 	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public String getFullName() {
+		return fullName;
 	}
-
-	public int getUserAge() {
-		return userAge;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-
-	public void setUserAge(int userAge) {
-		this.userAge = userAge;
+	public String getEmailId() {
+		return emailId;
 	}
-
-	public double getUserSalary() {
-		return userSalary;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
-
-	public void setUserSalary(double userSalary) {
-		this.userSalary = userSalary;
+	public int getScore() {
+		return score;
 	}
-
+	public void setScore(int score) {
+		this.score = score;
+	}
+	public int getRightAnswered() {
+		return rightAnswered;
+	}
+	public void setRightAnswered(int rightAnswered) {
+		this.rightAnswered = rightAnswered;
+	}
+	public int getWrongAnswered() {
+		return wrongAnswered;
+	}
+	public void setWrongAnswered(int wrongAnswered) {
+		this.wrongAnswered = wrongAnswered;
+	}
+	public int getNotAnswereds() {
+		return notAnswereds;
+	}
+	public void setNotAnswereds(int notAnswereds) {
+		this.notAnswereds = notAnswereds;
+	}
 	@Override
 	public String toString() {
-		return "UserEntity [userId=" + userId + ", userName=" + userName + ", userAge=" + userAge + ", userSalary="
-				+ userSalary + "]";
+		return "UserEntity [id=" + id + ", fullName=" + fullName + ", emailId=" + emailId + ", score=" + score
+				+ ", rightAnswered=" + rightAnswered + ", wrongAnswered=" + wrongAnswered + ", notAnswereds="
+				+ notAnswereds + "]";
 	}
 
+	
 }
